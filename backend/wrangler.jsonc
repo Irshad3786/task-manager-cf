@@ -1,0 +1,16 @@
+{
+	"name": "task-manager-api",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-09-05",
+	"observability": {
+		"enabled": true,
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "task-manager-db",
+			"database_id": "2a04d272-f565-4494-97ef-9df530419190"
+		}
+	],
+
+}
