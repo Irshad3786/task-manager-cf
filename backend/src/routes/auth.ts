@@ -6,6 +6,7 @@ import { SignJWT } from "jose";
 import { getDb } from "../db";
 import { users } from "../db/schema";
 import { loginSchema, registerSchema } from "./auth.schema";
+import { authMiddleware } from "../middleware/auth";
 
 type Bindings = {
   DB: D1Database;
@@ -147,6 +148,38 @@ auth.post("/login", async (c) => {
       name: user.name,
       email: user.email,
     },
+  });
+});
+
+
+auth.get("/me", authMiddleware, async (c) => {
+  const userId = c.get("userId");
+
+  const db = getDb(c.env.DB);
+
+  const userResult = await db
+    .select({
+      id: users.id,
+      name: users.name,
+      email: users.email,
+    })
+    .from(users)
+    .where(eq(users.id, userId))
+    .limit(1);
+
+  const user = userResult[0];
+
+  if (!user) {
+    return c.json(
+      {
+        error: "User not found",
+      },
+      404
+    );
+  }
+
+  return c.json({
+    user,
   });
 });
 

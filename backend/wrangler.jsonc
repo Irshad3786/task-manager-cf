@@ -5,6 +5,11 @@
 	"observability": {
 		"enabled": true,
 	},
+
+	"vars": {
+    	"FRONTEND_URL": "https://df23ab41.task-manager-frontend-4q9.pages.dev"
+  	},
+
 	"d1_databases": [
 		{
 			"binding": "DB",
